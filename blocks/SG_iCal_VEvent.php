@@ -29,7 +29,7 @@ class SG_iCal_VEvent {
 	 * @param SG_iCal_Line[] $data
 	 * @param SG_iCalReader $ical
 	 */
-	function SG_iCal_VEvent($data, $ical ) {
+	function SG_iCal_VEvent($data, &$ical ) {
 		if( is_null($this) )
 			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
 		if( ! is_a($ical,'SG_iCal') )
@@ -209,7 +209,7 @@ class SG_iCal_VEvent {
 	 * @param $line SG_iCal_Line
 	 * @return int
 	 */
-	function getTimestamp( $line, $ical ) {
+	function getTimestamp( $line, &$ical ) {
 		if( is_null($this) )
 			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
 		if( ! is_a($line,'SG_iCal_Line') )

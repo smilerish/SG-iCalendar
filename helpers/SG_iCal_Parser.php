@@ -6,7 +6,7 @@ class SG_iCal_Parser {
 	 * @param string $url
 	 * @param SG_iCal $ical
 	 */
-	function Parse( $url, $ical ) {
+	function Parse( $url, &$ical ) {
 		if( ! is_a($ical,'SG_iCal') )
 			die('$ical is not an instance of SG_iCal in '.__FILE__.':'.__LINE__);
 		
@@ -20,7 +20,7 @@ class SG_iCal_Parser {
 	 * @param string $content
 	 * @param SG_iCal $ical
 	 */
-	function ParseString($content, $ical ) {
+	function ParseString($content, &$ical ) {
 		if( ! is_a($ical,'SG_iCal') )
 			die('$ical is not an instance of SG_iCal in '.__FILE__.':'.__LINE__);
 		
@@ -97,7 +97,7 @@ class SG_iCal_Parser {
 	 * @param string $content
 	 * @param SG_iCal $ical
 	 */
-	function _Parse( $content, $ical ) {
+	function _Parse( $content, &$ical ) {
 		if( ! is_a($ical,'SG_iCal') )
 			die('$ical is not an instance of SG_iCal in '.__FILE__.':'.__LINE__);
 		
@@ -148,7 +148,7 @@ class SG_iCal_Parser {
 	 * @param string $data
 	 * @param SG_iCal $ical
 	 */
-	function storeSection( $section, $data, $ical ) {
+	function storeSection( $section, $data, &$ical ) {
 		if( ! is_a($ical,'SG_iCal') )
 			die('$ical is not an instance of SG_iCal in '.__FILE__.':'.__LINE__);
 		

@@ -46,7 +46,7 @@ class SG_iCal_Recurrence {
 	 * @param object $line an SG_iCal_Line object which will be parsed to get the
 	 * desired information.
 	 */
-	function SG_iCal_Recurrence( $line) {
+	function SG_iCal_Recurrence( &$line) {
 		if( is_null($this) )
 			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
 

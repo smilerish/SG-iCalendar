@@ -23,7 +23,7 @@ class SG_iCal_Factory {
 	 * @param $section string
 	 * @param SG_iCal_Line[]
 	 */
-	function factory( $ical, $section, $data ) {
+	function factory( &$ical, $section, $data ) {
 		if( ! is_a($ical,'SG_iCal') )
 			die('$ical is not an instance of SG_iCal in '.__FILE__.':'.__LINE__);
 		

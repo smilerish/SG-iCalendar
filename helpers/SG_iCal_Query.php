@@ -18,7 +18,7 @@ class SG_iCal_Query {
 	 * @param int $end
 	 * @return SG_iCal_VEvent[]
 	 */
-	function Between( $ical, $start, $end ) {
+	function Between( &$ical, $start, $end ) {
 		if( is_a($ical,'SG_iCalReader') ) {
 			$ical = $ical->getEvents();
 		}
@@ -43,7 +43,7 @@ class SG_iCal_Query {
 	 * @param int $start
 	 * @return SG_iCal_VEvent[]
 	 */
-	function After( $ical, $start ) {
+	function After( &$ical, $start ) {
 		if( is_a($ical,'SG_iCalReader') ) {
 			$ical = $ical->getEvents();
 		}
@@ -68,7 +68,7 @@ class SG_iCal_Query {
 	 * @param string $column
 	 * @return SG_iCal_VEvent[]
 	 */
-	function Sort( $ical, $column ) {
+	function Sort( &$ical, $column ) {
 		if( is_a($ical,'SG_iCalReader') ) {
 			$ical = $ical->getEvents();
 		}

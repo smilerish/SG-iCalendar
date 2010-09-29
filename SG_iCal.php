@@ -75,7 +75,7 @@ class SG_iCal {
 	 * Sets the calendar info for this calendar
 	 * @param SG_iCal_VCalendar $info
 	 */
-	function setCalendarInfo( $info ) {
+	function setCalendarInfo( &$info ) {
 		if( is_null($this) )
 			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
 
@@ -144,7 +144,7 @@ class SG_iCal {
 	 * Adds a event to this calendar
 	 * @param SG_iCal_VEvent $event
 	 */
-	function addEvent( $event ) {
+	function addEvent( &$event ) {
 		if( is_null($this) )
 			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
 

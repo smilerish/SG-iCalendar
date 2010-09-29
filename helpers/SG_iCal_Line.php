@@ -47,7 +47,7 @@ class SG_iCal_Line {
 	}
 	
 	/**
-	 * Is this line the begining of a new block?
+	 * Is this line the beginning of a new block?
 	 * @return bool
 	 */
 	function isBegin() {
