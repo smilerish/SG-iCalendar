@@ -5,11 +5,17 @@ require_once 'PHPUnit/Framework.php';
 
 class FreqTest extends PHPUnit_Framework_TestCase {
 
-	public function setUp() {
+	function setUp() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		date_default_timezone_set('Europe/Copenhagen');
 	}
 
-	public function testDailyCount() {
+	function testDailyCount() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873183600,
 			873270000,
@@ -29,7 +35,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testDailyUntil() {
+	function testDailyUntil() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873183600,
 			873270000,
@@ -52,7 +61,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(882864000, $freq->previousOccurrence(time()));
 	}
 	
-	public function testDailyInterval() {
+	function testDailyInterval() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873183600,
 			873356400,
@@ -67,7 +79,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testDailyIntervalCount() {
+	function testDailyIntervalCount() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873183600,
 			874047600,
@@ -81,7 +96,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testDailyBydayBymonthUntil() {
+	function testDailyBydayBymonthUntil() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$rules = array(
 			'FREQ=YEARLY;UNTIL=20000131T090000Z;BYMONTH=1;BYDAY=SU,MO,TU,WE,TH,FR,SA',
 			'FREQ=DAILY;UNTIL=20000131T090000Z;BYMONTH=1'
@@ -122,7 +140,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		}
 	}
 	
-	public function testWeeklyCount() {
+	function testWeeklyCount() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873183600,
 			873788400,
@@ -141,7 +162,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testWeeklyUntil() {
+	function testWeeklyUntil() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873183600,
 			873788400,
@@ -163,7 +187,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(882864000, $freq->previousOccurrence(time()), 'Failed getting correct end date');
 	}
 	
-	public function testWeeklyBydayLimit() {
+	function testWeeklyBydayLimit() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$rules = array(
 			'FREQ=WEEKLY;UNTIL=19971007T000000Z;WKST=SU;BYDAY=TU,TH',
 			'FREQ=WEEKLY;COUNT=10;WKST=SU;BYDAY=TU,TH'
@@ -187,7 +214,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		}
 	}
 	
-	public function testWeeklyIntervalUntilByday() {
+	function testWeeklyIntervalUntilByday() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873183600,
 			873270000,
@@ -209,7 +239,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(882777600, $freq->previousOccurrence(time()), 'Failed getting correct end date');
 	}
 	
-	public function testWeeklyIntervalBydayCount() {
+	function testWeeklyIntervalBydayCount() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873183600,
 			873356400,
@@ -226,7 +259,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testMonthlyBydayCount() {
+	function testMonthlyBydayCount() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873442800,
 			875862000,
@@ -245,7 +281,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testMonthlyBydayUntil() {
+	function testMonthlyBydayUntil() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873442800,
 			875862000,
@@ -258,7 +297,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testMonthlyIntervalBydayCount2() {
+	function testMonthlyIntervalBydayCount2() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873615600,
 			875430000,
@@ -277,7 +319,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 
-	public function testMonthlyBydayCount2() {
+	function testMonthlyBydayCount2() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			874911600,
 			877330800,
@@ -292,7 +337,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testMonthlyBymonthday() {
+	function testMonthlyBymonthday() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			875430000,
 			878112000,
@@ -306,7 +354,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testMonthlyBymonthdayCount() {
+	function testMonthlyBymonthdayCount() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873183600,
 			874306800,
@@ -325,7 +376,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testMonthlyBymonthdayCount2() {
+	function testMonthlyBymonthdayCount2() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			875602800,
 			875689200,
@@ -344,7 +398,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testMonthlyIntervalBymonthdayCount() {
+	function testMonthlyIntervalBymonthdayCount() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873874800,
 			873961200,
@@ -363,7 +420,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testMonthlyIntervalByday() {
+	function testMonthlyIntervalByday() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873183600,
 			873788400,
@@ -381,7 +441,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testYearlyCountBymonth() {
+	function testYearlyCountBymonth() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			865926000,
 			868518000,
@@ -400,7 +463,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testYearlyIntervalCountBymonth() {
+	function testYearlyIntervalCountBymonth() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			857980800,
 			915955200,
@@ -419,7 +485,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testYearlyIntervalCountByyearday() {
+	function testYearlyIntervalCountByyearday() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			852105600,
 			860655600,
@@ -438,7 +507,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testYearlyByday() {
+	function testYearlyByday() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			864025200,
 			895474800,
@@ -449,7 +521,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testYearlyByweeknoByday() {
+	function testYearlyByweeknoByday() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			863420400,
 			894870000,
@@ -460,7 +535,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 
-	public function testYearlyBydayBymonth() {
+	function testYearlyBydayBymonth() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			858240000,
 			858844800,
@@ -478,7 +556,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 
-	public function testYearlyBydayBymonth2() {
+	function testYearlyBydayBymonth2() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			865494000,
 			866098800,
@@ -496,7 +577,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 
-	public function testYearlyBydayBymonthday() {
+	function testYearlyBydayBymonthday() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873183600,
 			887356800,
@@ -510,7 +594,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testYearlyBydayBymonthday2() {
+	function testYearlyBydayBymonthday2() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			874134000,
 			876553200,
@@ -528,7 +615,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testYearlyIntervalBymonthBydayBymonthday() {
+	function testYearlyIntervalBymonthBydayBymonthday() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			847180800,
 			973584000,
@@ -541,7 +631,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 	
 	// TODO: SETPOS rules
 	
-	public function testHourlyIntervalUntil() {
+	function testHourlyIntervalUntil() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873183600,
 			873194400,
@@ -553,7 +646,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testMinutelyIntervalCount() {
+	function testMinutelyIntervalCount() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873183600,
 			873184500,
@@ -568,7 +664,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testMinutelyIntervalCount2() {
+	function testMinutelyIntervalCount2() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dateset = array(
 			873183600,
 			873189000,
@@ -581,7 +680,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		$this->assertRule( $rule, $start, $dateset);
 	}
 	
-	public function testMinutelyIntervalByhour() {
+	function testMinutelyIntervalByhour() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$rules = array(
 			'FREQ=MINUTELY;INTERVAL=20;BYHOUR=9,10,11,12,13,14,15,16'/*,
 			'FREQ=DAILY;BYHOUR=9,10,11,12,13,14,15,16;BYMINUTE=0,20,40'*/ 
@@ -605,7 +707,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 		}
 	}
 
-	public function testLastOccurrence() {
+	function testLastOccurrence() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$rule = 'FREQ=YEARLY;INTERVAL=2;BYYEARDAY=1;COUNT=5';
 		$start = strtotime('2009-10-27T090000');
 		$freq = new SG_iCal_Freq($rule, $start);
@@ -614,7 +719,10 @@ class FreqTest extends PHPUnit_Framework_TestCase {
 	
 	// TODO: WKST rule
 	
-	private function assertRule( $rule, $start, $dateset ) {
+	function assertRule( $rule, $start, $dateset ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$freq = new SG_iCal_Freq($rule, $start);
 		reset($dateset);
 		$n = $start - 1;

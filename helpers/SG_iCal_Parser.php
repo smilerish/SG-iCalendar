@@ -6,10 +6,13 @@ class SG_iCal_Parser {
 	 * @param string $url
 	 * @param SG_iCal $ical
 	 */
-	public static function Parse( $url, SG_iCal $ical ) {
-		$content = self::Fetch( $url );
-		$content = self::UnfoldLines($content);
-		self::_Parse( $content, $ical );
+	function Parse( $url, $ical ) {
+		if( ! is_a($ical,'SG_iCal') )
+			die('$ical is not an instance of SG_iCal in '.__FILE__.':'.__LINE__);
+		
+		$content = SG_iCal_Parser::Fetch( $url );
+		$content = SG_iCal_Parser::UnfoldLines($content);
+		SG_iCal_Parser::_Parse( $content, $ical );
 	}
 	
 	/**
@@ -17,9 +20,12 @@ class SG_iCal_Parser {
 	 * @param string $content
 	 * @param SG_iCal $ical
 	 */
-	public static function ParseString($content, SG_iCal $ical ) {
-		$content = self::UnfoldLines($content);
-		self::_Parse( $content, $ical );
+	function ParseString($content, $ical ) {
+		if( ! is_a($ical,'SG_iCal') )
+			die('$ical is not an instance of SG_iCal in '.__FILE__.':'.__LINE__);
+		
+		$content = SG_iCal_Parser::UnfoldLines($content);
+		SG_iCal_Parser::_Parse( $content, $ical );
 	}
 	
 	/**
@@ -27,14 +33,14 @@ class SG_iCal_Parser {
 	 * encoded
 	 * @return string
 	 */
-	protected static function Fetch( $resource ) {
+	function Fetch( $resource ) {
 		$is_utf8 = true;
 		
 		if( is_file( $resource ) ) {
 			// The resource is a local file
 			$content = file_get_contents($resource);
 
-			if( ! self::_ValidUtf8( $content ) ) {
+			if( ! SG_iCal_Parser::_ValidUtf8( $content ) ) {
 				// The file doesn't appear to be UTF8
 				$is_utf8 = false;
 			}
@@ -54,7 +60,7 @@ class SG_iCal_Parser {
 			if( $ct != '' && strtolower(str_replace('-','', $enc)) != 'utf8' ) {
 				// Well, the encoding says it ain't utf-8
 				$is_utf8 = false;
-			} elseif( ! self::_ValidUtf8( $content ) ) {
+			} elseif( ! SG_iCal_Parser::_ValidUtf8( $content ) ) {
 				// The data isn't utf-8
 				$is_utf8 = false;
 			}
@@ -72,7 +78,7 @@ class SG_iCal_Parser {
 	 * This includes unfolding multi-line entries into a single line.
 	 * @param $content string
 	 */
-	protected static function UnfoldLines($content) {
+	function UnfoldLines($content) {
 		$data = array();
 		$content = explode("\n", $content);
 		for( $i=0; $i < count($content); $i++) {
@@ -91,7 +97,10 @@ class SG_iCal_Parser {
 	 * @param string $content
 	 * @param SG_iCal $ical
 	 */
-	private static function _Parse( $content, SG_iCal $ical ) {
+	function _Parse( $content, $ical ) {
+		if( ! is_a($ical,'SG_iCal') )
+			die('$ical is not an instance of SG_iCal in '.__FILE__.':'.__LINE__);
+		
 		$main_sections = array('vevent', 'vjournal', 'vtodo', 'vtimezone', 'vcalendar');
 		$sections = array();
 		$section = '';
@@ -109,7 +118,7 @@ class SG_iCal_Parser {
 				$section = end($sections);
 
 				if( array_search($removed, $main_sections) !== false ) {
-					self::StoreSection( $removed, $current_data[$removed], $ical);
+					SG_iCal_Parser::StoreSection( $removed, $current_data[$removed], $ical);
 					$current_data[$removed] = array();
 				}
 			} else {
@@ -139,7 +148,10 @@ class SG_iCal_Parser {
 	 * @param string $data
 	 * @param SG_iCal $ical
 	 */
-	protected static function storeSection( $section, $data, SG_iCal $ical ) {
+	function storeSection( $section, $data, $ical ) {
+		if( ! is_a($ical,'SG_iCal') )
+			die('$ical is not an instance of SG_iCal in '.__FILE__.':'.__LINE__);
+		
 		$data = SG_iCal_Factory::Factory($ical, $section, $data);
 		switch( $section ) {
 			case 'vcalendar':
@@ -164,7 +176,7 @@ class SG_iCal_Parser {
 	 * @param string $data
 	 * @return bool
 	 */
-	private static function _ValidUtf8( $data ) {
+	function _ValidUtf8( $data ) {
 		$rx  = '[\xC0-\xDF]([^\x80-\xBF]|$)';
 		$rx .= '|[\xE0-\xEF].{0,1}([^\x80-\xBF]|$)';
 		$rx .= '|[\xF0-\xF7].{0,2}([^\x80-\xBF]|$)';

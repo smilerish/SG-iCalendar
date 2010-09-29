@@ -23,20 +23,23 @@
  * @license http://creativecommons.org/licenses/by-sa/2.5/dk/deed.en_GB CC-BY-SA-DK
  */
 class SG_iCal_Freq {
-	private $weekdays = array('MO'=>'monday', 'TU'=>'tuesday', 'WE'=>'wednesday', 'TH'=>'thursday', 'FR'=>'friday', 'SA'=>'saturday', 'SU'=>'sunday');
-	private $knownRules = array('month', 'weekno', 'day', 'monthday', 'yearday', 'hour', 'minute');
-	private $simpleMode = true;
+	var $weekdays = array('MO'=>'monday', 'TU'=>'tuesday', 'WE'=>'wednesday', 'TH'=>'thursday', 'FR'=>'friday', 'SA'=>'saturday', 'SU'=>'sunday');
+	var $knownRules = array('month', 'weekno', 'day', 'monthday', 'yearday', 'hour', 'minute');
+	var $simpleMode = true;
 	
-	private $rules = array('freq'=>'yearly', 'interval'=>1);
-	private $start = 0;
-	private $freq = '';
+	var $rules = array('freq'=>'yearly', 'interval'=>1);
+	var $start = 0;
+	var $freq = '';
 	
 	/**
 	 * Constructs a new Freqency-rule
 	 * @param $rule string 
 	 * @param $start int Unix-timestamp (important!)
 	 */
-	public function __construct( $rule, $start ) {
+	function SG_iCal_Freq( $rule, $start ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$this->start = $start;
 				
 		$rules = array();
@@ -80,7 +83,10 @@ class SG_iCal_Freq {
 	 * @param int $offset
 	 * @return int
 	 */
-	public function previousOccurrence( $offset ) {
+	function previousOccurrence( $offset ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$t1 = $this->start;
 		while( ($t2 = $this->findNext($t1)) < $offset) {
 			if( $t2 == false ){
@@ -96,7 +102,10 @@ class SG_iCal_Freq {
 	 * @param int $offset
 	 * @return int
 	 */
-	public function nextOccurrence( $offset ) {
+	function nextOccurrence( $offset ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->findNext( $this->previousOccurrence( $offset) );
 	}
 
@@ -104,7 +113,10 @@ class SG_iCal_Freq {
 	 * Finds the absolute last occurrence of the rule from the given offset.
 	 * @return int timestamp
 	 */
-	public function lastOccurrence() {
+	function lastOccurrence() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$temp_timestamp = $this->findNext($this->start);
 		$timestamp = 0;
 		while ($temp_timestamp) {
@@ -137,7 +149,10 @@ class SG_iCal_Freq {
 	 * @param int $offset
 	 * @return int
 	 */
-	public function findNext($offset) {		
+	function findNext($offset) {		
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$echo = false;
 
 		//make sure the offset is valid
@@ -218,7 +233,10 @@ class SG_iCal_Freq {
 	 * @param boolean $truncate
 	 * @return int
 	 */
-	private function findStartingPoint( $offset, $interval, $truncate = true ) {
+	function findStartingPoint( $offset, $interval, $truncate = true ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$_freq = ($this->freq == 'daily') ? 'day__' : $this->freq;
 		$t = '+' . $interval . ' ' . substr($_freq,0,-2) . 's';
 		if( $_freq == 'monthly' && $truncate ) {
@@ -242,7 +260,10 @@ class SG_iCal_Freq {
 	 * @param int $offset
 	 * @return int
 	 */
-	public function findEndOfPeriod($offset) {
+	function findEndOfPeriod($offset) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->findStartingPoint($offset, 1);
 	}
 	
@@ -256,7 +277,10 @@ class SG_iCal_Freq {
 	 * @param int $freq
 	 * @return int
 	 */
-	private function truncateToPeriod( $time, $freq ) {
+	function truncateToPeriod( $time, $freq ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$date = getdate($time);
 		switch( $freq ) {
 			case "yearly":
@@ -290,7 +314,10 @@ class SG_iCal_Freq {
 	 * @param int $t
 	 * @return int
 	 */
-	private function ruleByday($rule, $t) {
+	function ruleByday($rule, $t) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$dir = ($rule{0} == '-') ? -1 : 1;
 		$dir_t = ($dir == 1) ? 'next' : 'last';
 		
@@ -340,7 +367,10 @@ class SG_iCal_Freq {
 		}
 	}
 	
-	private function ruleBymonth($rule, $t) {
+	function ruleBymonth($rule, $t) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$_t = mktime(date('H',$t), date('i',$t), date('s',$t), $rule, date('d', $t), date('Y', $t));
 		if( $t == $_t && isset($this->rules['byday']) ) {
 			// TODO: this should check if one of the by*day's exists, and have a multi-day value
@@ -350,14 +380,20 @@ class SG_iCal_Freq {
 		}
 	}
 	
-	private function ruleBymonthday($rule, $t) {
+	function ruleBymonthday($rule, $t) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		if( $rule < 0 ) {
 			$rule = date('t', $t) + $rule + 1;
 		}
 		return mktime(date('H',$t), date('i',$t), date('s',$t), date('m', $t), $rule, date('Y', $t));
 	}
 	
-	private function ruleByyearday($rule, $t) {
+	function ruleByyearday($rule, $t) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		if( $rule < 0 ) {
 			$_t = $this->findEndOfPeriod();
 			$d = '-';
@@ -369,7 +405,10 @@ class SG_iCal_Freq {
 		return strtotime($s, $_t);
 	}
 
-	private function ruleByweekno($rule, $t) {
+	function ruleByweekno($rule, $t) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		if( $rule < 0 ) {
 			$_t = $this->findEndOfPeriod();
 			$d = '-';
@@ -385,17 +424,26 @@ class SG_iCal_Freq {
 		return $_t;
 	}
 
-	private function ruleByhour($rule, $t) {
+	function ruleByhour($rule, $t) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$_t = mktime($rule, date('i',$t), date('s',$t), date('m',$t), date('d', $t), date('Y', $t));
 		return $_t;
 	}
 	
-	private function ruleByminute($rule, $t) {
+	function ruleByminute($rule, $t) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$_t = mktime(date('h',$t), $rule, date('s',$t), date('m',$t), date('d', $t), date('Y', $t));
 		return $_t;
 	}
 	
-	private function validDate( $t ) {
+	function validDate( $t ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		if( isset($this->rules['until']) && $this->rules['until'] <= $t ) {
 			return false;
 		}
@@ -442,7 +490,10 @@ class SG_iCal_Freq {
 		return true;
 	}
 	
-	private function isPrerule($rule, $freq) {
+	function isPrerule($rule, $freq) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		if( $rule == 'year')
 			return false;
 		if( $rule == 'month' && $freq == 'yearly')

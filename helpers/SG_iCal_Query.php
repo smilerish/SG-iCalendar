@@ -18,12 +18,12 @@ class SG_iCal_Query {
 	 * @param int $end
 	 * @return SG_iCal_VEvent[]
 	 */
-	public static function Between( $ical, $start, $end ) {
-		if( $ical instanceof SG_iCalReader ) {
+	function Between( $ical, $start, $end ) {
+		if( is_a($ical,'SG_iCalReader') ) {
 			$ical = $ical->getEvents();
 		}
 		if( !is_array($evs) ) {
-			throw new Exception('SG_iCal_Query::Between called with invalid input!');
+			die(__FUNCTION__.' called with invalid input in '.__FILE__.':'.__LINE__);
 		}
 		
 		$rtn = array();
@@ -43,12 +43,12 @@ class SG_iCal_Query {
 	 * @param int $start
 	 * @return SG_iCal_VEvent[]
 	 */
-	public static function After( $ical, $start ) {
-		if( $ical instanceof SG_iCalReader ) {
+	function After( $ical, $start ) {
+		if( is_a($ical,'SG_iCalReader') ) {
 			$ical = $ical->getEvents();
 		}
 		if( !is_array($ical) ) {
-			throw new Exception('SG_iCal_Query::After called with invalid input!');
+			die(__FUNCTION__.' called with invalid input in '.__FILE__.':'.__LINE__);
 		}
 		
 		$rtn = array();
@@ -68,12 +68,12 @@ class SG_iCal_Query {
 	 * @param string $column
 	 * @return SG_iCal_VEvent[]
 	 */
-	public static function Sort( $ical, $column ) {
-		if( $ical instanceof SG_iCalReader ) {
+	function Sort( $ical, $column ) {
+		if( is_a($ical,'SG_iCalReader') ) {
 			$ical = $ical->getEvents();
 		}
 		if( !is_array($ical) ) {
-			throw new Exception('SG_iCal_Query::Sort called with invalid input!');
+			die(__FUNCTION__.' called with invalid input in '.__FILE__.':'.__LINE__);
 		}
 		
 		$cmp = create_function('$a, $b', 'return strcmp($a->getProperty("' . $column . '"), $b->getProperty("' . $column . '"));');

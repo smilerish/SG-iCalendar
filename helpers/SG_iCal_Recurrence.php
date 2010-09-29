@@ -14,28 +14,28 @@
  */
 class SG_iCal_Recurrence {
 
-	protected $freq;
+	var $freq;
 
-	protected $until;
-	protected $count;
+	var $until;
+	var $count;
 	
-	protected $interval;
-	protected $bysecond;
-	protected $byminute;
-	protected $byhour;
-	protected $byday;
-	protected $bymonthday;
-	protected $byyearday;
-	protected $byyearno;
-	protected $bymonth;
-	protected $bysetpos;
-	protected $wkst;
+	var $interval;
+	var $bysecond;
+	var $byminute;
+	var $byhour;
+	var $byday;
+	var $bymonthday;
+	var $byyearday;
+	var $byyearno;
+	var $bymonth;
+	var $bysetpos;
+	var $wkst;
 
 	/**
 	 * A list of the properties that can have comma-separated lists for values.
 	 * @var array
 	 */
-	protected $listProperties = array(
+	var $listProperties = array(
 		'bysecond', 'byminute', 'byhour', 'byday', 'bymonthday',
 		'byyearday', 'byyearno', 'bymonth', 'bysetpos'
 	);
@@ -46,7 +46,13 @@ class SG_iCal_Recurrence {
 	 * @param object $line an SG_iCal_Line object which will be parsed to get the
 	 * desired information.
 	 */
-	public function __construct(SG_iCal_Line $line) {
+	function SG_iCal_Recurrence( $line) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
+		if( ! is_a($line,'SG_iCal_Line') )
+			die('$line is not an instance of SG_iCal_Line in '.__FILE__.':'.__LINE__);
+		
 		$this->parseLine($line->getData());
 	}
 
@@ -55,7 +61,10 @@ class SG_iCal_Recurrence {
 	 * Expects a string that looks like this:  'FREQ=WEEKLY;INTERVAL=2;BYDAY=SU,TU,WE'
 	 * @param string $line the line to be parsed
 	 */
-	protected function parseLine($line) {
+	function parseLine($line) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		//split up the properties
 		$recurProperties = explode(';', $line);
 		$recur = array();
@@ -82,8 +91,11 @@ class SG_iCal_Recurrence {
 	 * @param string $member name of the member variable
 	 * @return mixed the variable value (if set), false otherwise
 	 */
-	protected function getMember($member)
+	function getMember($member)
 	{
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+		
 		if (isset($this->$member)) {
 			return $this->$member;
 		}
@@ -94,7 +106,10 @@ class SG_iCal_Recurrence {
 	 * Returns the frequency - corresponds to FREQ in RFC 2445.
 	 * @return mixed string if the member has been set, false otherwise
 	 */
-	public function getFreq() {
+	function getFreq() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->getMember('freq');
 	}
 
@@ -102,7 +117,11 @@ class SG_iCal_Recurrence {
 	 * Returns when the event will go until - corresponds to UNTIL in RFC 2445.
 	 * @return mixed string if the member has been set, false otherwise
 	 */
-	public function getUntil() {
+	function getUntil() {
+
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 
 		return $this->getMember('until');
 	}
@@ -112,7 +131,10 @@ class SG_iCal_Recurrence {
 	 * does not appear) - corresponds to COUNT in RFC 2445.
 	 * @return mixed string if the member has been set, false otherwise
 	 */
-	public function getCount() {
+	function getCount() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->getMember('count');
 	}
 
@@ -120,7 +142,10 @@ class SG_iCal_Recurrence {
 	 * Returns the interval - corresponds to INTERVAL in RFC 2445.
 	 * @return mixed string if the member has been set, false otherwise
 	 */
-	public function getInterval() {
+	function getInterval() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->getMember('interval');
 	}
 
@@ -128,7 +153,10 @@ class SG_iCal_Recurrence {
 	 * Returns the bysecond part of the event - corresponds to BYSECOND in RFC 2445.
 	 * @return mixed string if the member has been set, false otherwise
 	 */
-	public function getBySecond() {
+	function getBySecond() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->getMember('bysecond');
 	}
 
@@ -136,7 +164,10 @@ class SG_iCal_Recurrence {
 	 * Returns the byminute information for the event - corresponds to BYMINUTE in RFC 2445.
 	 * @return mixed string if the member has been set, false otherwise
 	 */
-	public function getByMinute() {
+	function getByMinute() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->getMember('byminute');
 	}
 
@@ -144,7 +175,10 @@ class SG_iCal_Recurrence {
 	 * Corresponds to BYHOUR in RFC 2445.
 	 * @return mixed string if the member has been set, false otherwise
 	 */
-	public function getByHour() {
+	function getByHour() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->getMember('byhour');
 	}
 
@@ -152,7 +186,10 @@ class SG_iCal_Recurrence {
 	 *Corresponds to BYDAY in RFC 2445.
 	 * @return mixed string if the member has been set, false otherwise
 	 */
-	public function getByDay() {
+	function getByDay() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->getMember('byday');
 	}
 
@@ -160,7 +197,10 @@ class SG_iCal_Recurrence {
 	 * Corresponds to BYMONTHDAY in RFC 2445.
 	 * @return mixed string if the member has been set, false otherwise
 	 */
-	public function getByMonthDay() {
+	function getByMonthDay() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->getMember('bymonthday');
 	}
 
@@ -168,7 +208,10 @@ class SG_iCal_Recurrence {
 	 * Corresponds to BYYEARDAY in RFC 2445.
 	 * @return mixed string if the member has been set, false otherwise
 	 */
-	public function getByYearDay() {
+	function getByYearDay() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->getMember('byyearday');
 	}
 
@@ -176,7 +219,10 @@ class SG_iCal_Recurrence {
 	 * Corresponds to BYYEARNO in RFC 2445.
 	 * @return mixed string if the member has been set, false otherwise
 	 */
-	public function getByYearNo() {
+	function getByYearNo() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->getMember('byyearno');
 	}
 
@@ -184,7 +230,10 @@ class SG_iCal_Recurrence {
 	 * Corresponds to BYMONTH in RFC 2445.
 	 * @return mixed string if the member has been set, false otherwise
 	 */
-	public function getByMonth() {
+	function getByMonth() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->getMember('bymonth');
 	}
 
@@ -192,7 +241,10 @@ class SG_iCal_Recurrence {
 	 * Corresponds to BYSETPOS in RFC 2445.
 	 * @return mixed string if the member has been set, false otherwise
 	 */
-	public function getBySetPos() {
+	function getBySetPos() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->getMember('bysetpos');
 	}
 
@@ -200,7 +252,10 @@ class SG_iCal_Recurrence {
 	 * Corresponds to WKST in RFC 2445.
 	 * @return mixed string if the member has been set, false otherwise
 	 */
-	public function getWkst() {
+	function getWkst() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->getMember('wkst');
 	}
 }

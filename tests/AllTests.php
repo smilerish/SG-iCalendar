@@ -5,7 +5,7 @@ require_once dirname(__FILE__).'/helpers/AllTests.php';
 
 class AllTests {
 
-	public static function suite() {
+	function suite() {
 		$suite = new PHPUnit_Framework_TestSuite();
 		$suite->addTest(Blocks_AllTests::suite());
 		$suite->addTest(Helpers_AllTests::suite());

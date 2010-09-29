@@ -9,13 +9,17 @@
  * @author Morten Fangel (C) 2008
  * @license http://creativecommons.org/licenses/by-sa/2.5/dk/deed.en_GB CC-BY-SA-DK
  */
-class SG_iCal_VCalendar implements IteratorAggregate {
-	private $data;
+class SG_iCal_VCalendar {
+	// PHP4 doesn't have iterators… this will need something clever!
+	var $data;
 	
 	/**
 	 * Creates a new SG_iCal_VCalendar.
 	 */
-	public function __construct($data) {
+	function SG_iCal_VCalendar($data) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$this->data = $data;
 	}
 	
@@ -24,7 +28,10 @@ class SG_iCal_VCalendar implements IteratorAggregate {
 	 * will be returned
 	 * @return string
 	 */
-	public function getTitle() {
+	function getTitle() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		if( isset($this->data['x-wr-calname']) ) {
 			return $this->data['x-wr-calname'];
 		} else {
@@ -37,7 +44,10 @@ class SG_iCal_VCalendar implements IteratorAggregate {
 	 * known, NULL will be returned.
 	 * @return string
 	 */
-	public function getDescription() {
+	function getDescription() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		if( isset($this->data['x-wr-caldesc']) ) {
 			return $this->data['x-wr-caldesc'];
 		} else {
@@ -48,7 +58,10 @@ class SG_iCal_VCalendar implements IteratorAggregate {
 	/**
 	 * @see IteratorAggregate.getIterator()
 	 */
-	public function getIterator() {
+	function getIterator() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return new ArrayIterator($this->data);
 	}
 }

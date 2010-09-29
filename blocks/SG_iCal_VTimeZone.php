@@ -9,15 +9,18 @@
  * @license http://creativecommons.org/licenses/by-sa/2.5/dk/deed.en_GB CC-BY-SA-DK
  */
 class SG_iCal_VTimeZone {
-	private $tzid;
-	private $daylight;
-	private $standard;
-	private $cache = array();
+	var $tzid;
+	var $daylight;
+	var $standard;
+	var $cache = array();
 	
 	/**
 	 * Constructs a new SG_iCal_VTimeZone
 	 */
-	public function __construct( $data ) {
+	function SG_iCal_VTimeZone( $data ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		require_once dirname(__FILE__).'/../helpers/SG_iCal_Freq.php'; // BUILD: Remove line
 	
 		$this->tzid = $data['tzid'];
@@ -30,7 +33,10 @@ class SG_iCal_VTimeZone {
 	 * differentiate between different tzs in a calendar)
 	 * @return string
 	 */
-	public function getTimeZoneId() {
+	function getTimeZoneId() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->tzid;
 	}
 	
@@ -40,7 +46,10 @@ class SG_iCal_VTimeZone {
 	 * @param int $ts
 	 * @return string
 	 */
-	public function getOffset( $ts ) {
+	function getOffset( $ts ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$act = $this->getActive($ts);
 		return $this->{$act}['tzoffsetto'];
 	}
@@ -50,7 +59,10 @@ class SG_iCal_VTimeZone {
 	 * @param int $ts
 	 * @return string
 	 */
-	public function getTimeZoneName($ts) {
+	function getTimeZoneName($ts) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$act = $this->getActive($ts);
 		return $this->{$act}['tzname'];
 	}
@@ -64,7 +76,10 @@ class SG_iCal_VTimeZone {
 	 * @param int $ts
 	 * @return string standard|daylight
 	 */
-	private function getActive( $ts ) {
+	function getActive( $ts ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		if( isset($this->cache[$ts]) ) {
 			return $this->cache[$ts];
 		}

@@ -5,7 +5,7 @@ require_once dirname(__FILE__).'/RecurrenceTest.php';
 
 class Helpers_AllTests {
 
-	public static function suite() {
+	function suite() {
 		$suite = new PHPUnit_Framework_TestSuite('Helpers');
 		$suite->addTestSuite('FreqTest');
 		$suite->addTestSuite('RecurrenceTest');

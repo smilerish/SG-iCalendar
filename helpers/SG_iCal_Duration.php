@@ -9,7 +9,7 @@
  */
 
 class SG_iCal_Duration {
-	private $dur;
+	var $dur;
 	
 	/**
 	 * Constructs a new SG_iCal_Duration from a duration-rule.
@@ -19,7 +19,10 @@ class SG_iCal_Duration {
 	 *
 	 * @param $duration string
 	 */
-	public function __construct( $duration ) {
+	function SG_iCal_Duration( $duration ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		if( $duration{0} == 'P' || (($duration{0} == '+' || $duration{0} == '-') && $duration{1} == 'P') ) {
 			preg_match('/P((\d+)W)?((\d+)D)?(T)?((\d+)H)?((\d+)M)?((\d+)S)?/', $duration, $matches);
 			$results = array('weeks'=>(int)$matches[2],
@@ -48,7 +51,10 @@ class SG_iCal_Duration {
 	 * Returns the duration in seconds
 	 * @return int
 	 */
-	public function getDuration() {
+	function getDuration() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->dur;
 	}
 }

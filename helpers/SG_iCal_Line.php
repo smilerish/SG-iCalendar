@@ -14,17 +14,20 @@
  * @author Morten Fangel (C) 2008
  * @license http://creativecommons.org/licenses/by-sa/2.5/dk/deed.en_GB CC-BY-SA-DK
  */
-class SG_iCal_Line implements ArrayAccess, Countable, IteratorAggregate {
-	private $ident;
-	private $data;
-	private $params = array();
+class SG_iCal_Line {
+	var $ident;
+	var $data;
+	var $params = array();
 	
-	private $replacements = array('from'=>array('\\,', '\\n', '\\;', '\\:', '\\"'), 'to'=>array(',', "\n", ';', ':', '"'));
+	var $replacements = array('from'=>array('\\,', '\\n', '\\;', '\\:', '\\"'), 'to'=>array(',', "\n", ';', ':', '"'));
 	
 	/**
 	 * Constructs a new line.
 	 */
-	public function __construct( $line ) {
+	function SG_iCal_Line( $line ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$split = strpos($line, ':');
 		$idents = explode(';', substr($line, 0, $split));
 		$ident = strtolower(array_shift($idents));
@@ -47,7 +50,10 @@ class SG_iCal_Line implements ArrayAccess, Countable, IteratorAggregate {
 	 * Is this line the begining of a new block?
 	 * @return bool
 	 */
-	public function isBegin() {
+	function isBegin() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->ident == 'begin';
 	}
 	
@@ -55,7 +61,10 @@ class SG_iCal_Line implements ArrayAccess, Countable, IteratorAggregate {
 	 * Is this line the end of a block?
 	 * @return bool
 	 */
-	public function isEnd() {
+	function isEnd() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->ident == 'end';
 	}
 	
@@ -63,7 +72,10 @@ class SG_iCal_Line implements ArrayAccess, Countable, IteratorAggregate {
 	 * Returns the line-type (ident) of the line
 	 * @return string
 	 */
-	public function getIdent() {
+	function getIdent() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->ident;
 	}
 	
@@ -71,7 +83,10 @@ class SG_iCal_Line implements ArrayAccess, Countable, IteratorAggregate {
 	 * Returns the content of the line
 	 * @return string
 	 */
-	public function getData() {
+	function getData() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->data;
 	}
 	
@@ -82,12 +97,12 @@ class SG_iCal_Line implements ArrayAccess, Countable, IteratorAggregate {
 	 * @param SG_iCal_Line[]
 	 * @return array
 	 */
-	public static function Remove_Line($arr) {
+	function Remove_Line($arr) {
 		$rtn = array();
 		foreach( $arr AS $k => $v ) {
 			if(is_array($v)) {
-				$rtn[$k] = self::Remove_Line($v);
-			} elseif( $v instanceof SG_iCal_Line ) {
+				$rtn[$k] = SG_iCal_Line::Remove_Line($v);
+			} elseif( is_a($v,'SG_iCal_Line') ) {
 				$rtn[$k] = $v->getData();
 			} else {
 				$rtn[$k] = $v;
@@ -99,14 +114,20 @@ class SG_iCal_Line implements ArrayAccess, Countable, IteratorAggregate {
 	/**
 	 * @see ArrayAccess.offsetExists
 	 */
-	public function offsetExists( $param ) {
+	function offsetExists( $param ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return isset($this->params[ strtolower($param) ]);
 	}
 	
 	/**
 	 * @see ArrayAccess.offsetGet
 	 */
-	public function offsetGet( $param ) {
+	function offsetGet( $param ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$index = strtolower($param);
 		if (isset($this->params[ $index ])) {
 			return $this->params[ $index ];
@@ -117,7 +138,10 @@ class SG_iCal_Line implements ArrayAccess, Countable, IteratorAggregate {
 	 * Disabled ArrayAccess requirement
 	 * @see ArrayAccess.offsetSet
 	 */
-	public function offsetSet( $param, $val ) {
+	function offsetSet( $param, $val ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return false;
 	}
 	
@@ -125,7 +149,10 @@ class SG_iCal_Line implements ArrayAccess, Countable, IteratorAggregate {
 	 * Disabled ArrayAccess requirement
 	 * @see ArrayAccess.offsetUnset
 	 */
-	public function offsetUnset( $param ) {
+	function offsetUnset( $param ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return false;
 	}
 	
@@ -133,21 +160,30 @@ class SG_iCal_Line implements ArrayAccess, Countable, IteratorAggregate {
 	 * toString method.
 	 * @see getData()
 	 */
-	public function __toString() {
+	function __toString() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->getData();
 	}
 	
 	/**
 	 * @see Countable.count
 	 */
-	public function count() {
+	function count() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return count($this->params);
 	}
 	
 	/**
 	 * @see IteratorAggregate.getIterator
 	 */
-	public function getIterator() {
+	function getIterator() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return new ArrayIterator($this->params);
 	}
 }

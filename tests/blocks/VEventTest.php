@@ -3,7 +3,10 @@ require_once dirname(__FILE__).'/../common.php';
 require_once 'PHPUnit/Framework.php';
 
 class VEventTest extends PHPUnit_Framework_TestCase {
-	public function testParsingOfStartTimeWithTzidSet() {
+	function testParsingOfStartTimeWithTzidSet() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$ical = new SG_iCal();
 		$timezone['tzid'] = 'America/New_York';
 		$timezone['daylight'] = array(
@@ -46,7 +49,10 @@ class VEventTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(strtotime('20091023T1500'), $event->getStart());
 	}
 
-	public function testParsingOfStartTimeAndEndTimeOverDaylightChange() {
+	function testParsingOfStartTimeAndEndTimeOverDaylightChange() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$timezone2['tzid'] = 'Europe/Copenhagen';
 		$timezone2['daylight'] = array(
 			'tzoffsetfrom' => '+0100',
@@ -75,7 +81,10 @@ class VEventTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(strtotime('20091030T090000'), $event->getEnd());
 	}
 
-	public function testParsingOfEndTimeWithTzidSetAndUntilSetUnderRRULE() {
+	function testParsingOfEndTimeWithTzidSetAndUntilSetUnderRRULE() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		$ical = new SG_iCal();
 		$timezone['tzid'] = 'America/New_York';
 		$timezone['daylight'] = array(

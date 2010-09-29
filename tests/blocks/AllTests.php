@@ -4,7 +4,7 @@ require_once dirname(__FILE__).'/VEventTest.php';
 
 class Blocks_AllTests {
 	
-	public static function suite() {
+	function suite() {
 		$suite = new PHPUnit_Framework_TestSuite();
 		$suite->addTestSuite('VEventTest');
 		

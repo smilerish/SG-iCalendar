@@ -1,5 +1,5 @@
 <?php // BUILD: Remove line
-
+define('SG_iCAL_VEVENT__DEFAULT_CONFIRMED',true);
 /**
  * The wrapper for vevents. Will reveal a unified and simple api for 
  * the events, which include always finding a start and end (except
@@ -14,15 +14,14 @@
  * @license http://creativecommons.org/licenses/by-sa/2.5/dk/deed.en_GB CC-BY-SA-DK
  */
 class SG_iCal_VEvent {
-	const DEFAULT_CONFIRMED = true;
-	private $uid;
-	private $start;
-	private $end;
-	private $recurrence;
-	private $summary;
-	private $description;
-	private $location;
-	private $data;
+	var $uid;
+	var $start;
+	var $end;
+	var $recurrence;
+	var $summary;
+	var $description;
+	var $location;
+	var $data;
 	
 	/**
 	 * Constructs a new SG_iCal_VEvent. Needs the SG_iCalReader 
@@ -30,11 +29,17 @@ class SG_iCal_VEvent {
 	 * @param SG_iCal_Line[] $data
 	 * @param SG_iCalReader $ical
 	 */
-	public function __construct($data, SG_iCal $ical ) {
+	function SG_iCal_VEvent($data, $ical ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+		if( ! is_a($ical,'SG_iCal') )
+			die('$ical is not an instance of SG_iCal in '.__FILE__.':'.__LINE__);
+		
 		$this->uid = $data['uid']->getData();
 		unset($data['uid']);
 
 		if ( isset($data['rrule']) ) {
+			require_once dirname(__FILE__).'/../helpers/SG_iCal_Recurrence.php'; // BUILD: Remove line
 			$this->recurrence = new SG_iCal_Recurrence($data['rrule']);
 			unset($data['rrule']);
 		}
@@ -82,7 +87,10 @@ class SG_iCal_VEvent {
 	 * Returns the UID of the event
 	 * @return string
 	 */
-	public function getUID() {
+	function getUID() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->uid;
 	}
 	
@@ -90,7 +98,10 @@ class SG_iCal_VEvent {
 	 * Returns the summary (or null if none is given) of the event
 	 * @return string
 	 */
-	public function getSummary() {
+	function getSummary() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->summary;
 	}
 	
@@ -98,7 +109,10 @@ class SG_iCal_VEvent {
 	 * Returns the description (or null if none is given) of the event
 	 * @return string
 	 */
-	public function getDescription() {
+	function getDescription() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->description;
 	}
 	
@@ -106,7 +120,10 @@ class SG_iCal_VEvent {
 	 * Returns the location (or null if none is given) of the event
 	 * @return string
 	 */
-	public function getLocation() {
+	function getLocation() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->location;
 	}
 	
@@ -114,7 +131,10 @@ class SG_iCal_VEvent {
 	 * Returns true if the event is blocking (ie not transparent)
 	 * @return bool
 	 */
-	public function isBlocking() {
+	function isBlocking() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return !(isset($this->data['transp']) && $this->data['transp'] == 'TRANSPARENT');
 	}
 	
@@ -122,9 +142,12 @@ class SG_iCal_VEvent {
 	 * Returns true if the event is confirmed
 	 * @return bool
 	 */
-	public function isConfirmed() {
+	function isConfirmed() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		if( !isset($this->data['status']) ) {
-			return self::DEFAULT_CONFIRMED;
+			return SG_iCAL_VEVENT__DEFAULT_CONFIRMED;
 		} else {
 			return $this->data['status'] == 'CONFIRMED';
 		}
@@ -134,7 +157,10 @@ class SG_iCal_VEvent {
 	 * Returns the timestamp for the beginning of the event
 	 * @return int
 	 */
-	public function getStart() {
+	function getStart() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->start;
 	}
 	
@@ -142,7 +168,10 @@ class SG_iCal_VEvent {
 	 * Returns the timestamp for the end of the event
 	 * @return int
 	 */
-	public function getEnd() {
+	function getEnd() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->end;
 	}
 	
@@ -150,7 +179,10 @@ class SG_iCal_VEvent {
 	 * Returns the duration of this event in seconds
 	 * @return int
 	 */
-	public function getDuration() {
+	function getDuration() {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		return $this->end - $this->start;
 	}
 	
@@ -159,7 +191,10 @@ class SG_iCal_VEvent {
 	 * @param string $prop
 	 * @return string
 	 */
-	public function getProperty( $prop ) {
+	function getProperty( $prop ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+
 		if( isset($this->$prop) ) {
 			return $this->$prop;
 		} elseif( isset($this->data[$prop]) ) {
@@ -174,7 +209,14 @@ class SG_iCal_VEvent {
 	 * @param $line SG_iCal_Line
 	 * @return int
 	 */
-	private function getTimestamp( SG_iCal_Line $line, SG_iCal $ical ) {
+	function getTimestamp( $line, $ical ) {
+		if( is_null($this) )
+			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
+		if( ! is_a($line,'SG_iCal_Line') )
+			die('$line is not an instance of SG_iCal_Line in '.__FILE__.':'.__LINE__);
+		if( ! is_a($ical,'SG_iCal') )
+			die('$ical is not an instance of SG_iCal in '.__FILE__.':'.__LINE__);
+		
 		$ts = strtotime($line->getData());
 		if( isset($line['tzid']) ) {
 			$tz = $ical->getTimeZoneInfo($line['tzid']);
