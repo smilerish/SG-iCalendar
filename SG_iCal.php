@@ -35,9 +35,6 @@ class SG_iCal {
 	function SG_iCAL($url = false) {
 		if( is_null($this) )
 			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
-
-		if( is_null($this) )
-			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
 		
 		require_once dirname(__FILE__) . '/helpers/SG_iCal_Factory.php'; // BUILD: Remove line
 		require_once dirname(__FILE__) . '/helpers/SG_iCal_Line.php'; // BUILD: Remove line
@@ -56,9 +53,6 @@ class SG_iCal {
 	function setUrl( $url = false ) {
 		if( is_null($this) )
 			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
-
-		if( is_null($this) )
-			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
 			
 		if( $url !== false ) {
 			SG_iCal_Parser::Parse($url, $this);
@@ -74,9 +68,6 @@ class SG_iCal {
 		if( is_null($this) )
 			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
 
-		if( is_null($this) )
-			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
-
 		return $this->information;
 	}
 	
@@ -85,9 +76,6 @@ class SG_iCal {
 	 * @param SG_iCal_VCalendar $info
 	 */
 	function setCalendarInfo( $info ) {
-		if( is_null($this) )
-			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
-
 		if( is_null($this) )
 			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
 
@@ -110,9 +98,6 @@ class SG_iCal {
 	 * @return SG_iCal_VTimeZone
 	 */
 	function getTimeZoneInfo( $tzid = null ) {
-		if( is_null($this) )
-			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
-
 		if( is_null($this) )
 			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
 
@@ -139,9 +124,6 @@ class SG_iCal {
 		if( is_null($this) )
 			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
 
-		if( is_null($this) )
-			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
-
 		if( ! is_a($tz,'SG_iCal_VTimeZone') )
 			die('$tz is not an instance of SG_iCal_VTimeZone in '.__FILE__.':'.__LINE__);
 		$this->timezones[] = $tz;
@@ -155,9 +137,6 @@ class SG_iCal {
 		if( is_null($this) )
 			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
 
-		if( is_null($this) )
-			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
-
 		return $this->events;
 	}
 
@@ -166,9 +145,6 @@ class SG_iCal {
 	 * @param SG_iCal_VEvent $event
 	 */
 	function addEvent( $event ) {
-		if( is_null($this) )
-			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
-
 		if( is_null($this) )
 			die(__FUNCTION__.' is not static in '.__FILE__.':'.__LINE__);
 
